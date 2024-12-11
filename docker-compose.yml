@@ -5,19 +5,30 @@ version: '3.1'
 
 services:
 
-  fledge:
-    container_name: fledge-gui
-    image: nginx
-    build:
-      context: .
-      dockerfile: nginx.dockerfile
+  # fledge:
+  #   container_name: fledge-gui
+  #   image: nginx
+  #   build:
+  #     context: .
+  #     dockerfile: nginx.dockerfile
+  #   ports:
+  #     - "8080:80"
+  #     # - "443:443"
+
+  #   networks:
+  #     - app-network
+
+
+  backend:
+    container_name: fledge
+    image: robraesemann/fledge:2.6.0
     ports:
-      - "8080:80"
-      # - "443:443"
-
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+      - 8081:8081
+      - 443:443
+    volumes:
+      - ./fledge:/usr/local/fledge/data
+    # networks:
+    #   - app-network
+# networks:
+#   app-network:
+#     driver: bridge
